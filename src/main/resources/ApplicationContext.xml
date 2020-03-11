@@ -17,6 +17,15 @@
         <constructor-arg ref = "eventLogger"/>
     </bean>
 
+    <bean id = "dateFormat"
+          class = "java.text.DateFormat"
+          factory-method="getDateTimeInstance"/>
+
+    <bean id = "event" class = "Event" scope="prototype">
+        <constructor-arg value="java.util.Date"/>
+        <constructor-arg type="java.text.DateFormat" ref = "dateFormat"/>
+    </bean>
+
 
 
 </beans>
