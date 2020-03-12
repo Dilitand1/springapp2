@@ -21,7 +21,7 @@ public class App {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
         App app = context.getBean("app",App.class);
 
-        app.logEvent("Event for user 2");
+        app.logEvent("Event for user 1");
 
         /*
         App app = new App();
