@@ -7,10 +7,13 @@
 
     <bean name = "client,client2" id = "client" class = "Client">
         <constructor-arg index="0" value="2" />
-        <constructor-arg index="1" value="Dima"/>
+        <constructor-arg index="1" type="java.lang.String" value="Dima"/>
     </bean>
 
     <bean id="eventLogger" class="ConsoleEventLogger"/>
+    <bean id = "fileLogger" class = "FileEventLogger" init-method="init" destroy-method="destroy">
+        <constructor-arg value="temp.txt"/>
+    </bean>
 
     <bean id = "app" class = "App">
         <constructor-arg type="Client" ref = "client"/>
