@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class Event {
-    int id = new Random().nextInt() * 100;
+    int id = Math.abs(new Random().nextInt());
     String msg;
     Date date;
     DateFormat dateFormat;
@@ -24,6 +24,6 @@ public class Event {
 
     @Override
     public String toString() {
-        return "id = " + id + " msg = " + msg + " date = " + dateFormat.format(date);
+        return "id = " + id + " msg = " + msg + " date = " + dateFormat.format(date) + "\n";
     }
 }

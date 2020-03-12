@@ -16,12 +16,14 @@ public class FileEventLogger implements EventLogger {
 
         try {
             FileUtils.writeStringToFile(new File(filename),event.toString(),true);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void init() throws IOException{
+        System.out.println("init");
         File file = new File(filename);
         if (!file.canRead()){
             throw new IOException();

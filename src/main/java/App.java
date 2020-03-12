@@ -14,8 +14,7 @@ public class App {
     }
 
     void logEvent(Event event){
-        //String message = msg.replaceAll(String.valueOf(client.getId()),client.getFullname());
-        //eventLogger.logEvent();
+        eventLogger.logEvent(event);
     }
 
     public static void main(String[] args) {
@@ -23,15 +22,16 @@ public class App {
         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
         App app = context.getBean("app",App.class);
 
-        /*
-        App app = new App();
+        Event event1 = context.getBean("event",Event.class);
+        Event event2 = context.getBean("event",Event.class);
+        Event event3 = context.getBean("event",Event.class);
 
-        app.client = new Client(1,"Jon");
-        app.eventLogger = new ConsoleEventLogger();
+        app.logEvent(event1);
+        app.logEvent(event2);
+        app.logEvent(event3);
 
-        app.logEvent("Event for user 1");
+        context.close();
 
-         */
     }
 
 
