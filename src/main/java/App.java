@@ -1,20 +1,30 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
-import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class App {
     private Client client;
     private EventLogger eventLogger;
+    private Map<EventType,EventLogger> map;
 
-    App(Client client,EventLogger eventLogger){
+    App(Client client, @Qualifier("cacheLogger") EventLogger eventLogger, Map<EventType, EventLogger> map){
         this.client = client;
         this.eventLogger = eventLogger;
+        this.map = map;
     }
 
-    void logEvent(Event event){
-        eventLogger.logEvent(event);
+    void logEvent(EventType eventType, Event event){
+        EventLogger logger = map.get(eventType);
+        if (logger == null){
+            logger = eventLogger;
+        }
+        logger.logEvent(event);
     }
 
     public static void main(String[] args) {
@@ -26,9 +36,11 @@ public class App {
         Event event2 = context.getBean("event",Event.class);
         Event event3 = context.getBean("event",Event.class);
 
-        app.logEvent(event1);
-        app.logEvent(event2);
-        app.logEvent(event3);
+        app.logEvent(EventType.ERROR,event1);
+        app.logEvent(EventType.INFO,event2);
+
+
+        System.out.println(app.client);
 
         context.close();
 
